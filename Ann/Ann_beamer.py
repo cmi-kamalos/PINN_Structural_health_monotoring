@@ -126,6 +126,12 @@ installations of the following librairies
     -scikit(sklearn)
 """
 
+# suppress tensorflow warnings (must be called before importing tensorflow)
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
+
+
 import pandas as pd
 import numpy as np
 
@@ -137,10 +143,6 @@ import tensorflow as tf
 from keras.models import Sequential
 from keras.layers import Dense
 
-# suppress tensorflow warnings (must be called before importing tensorflow)
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 
 
@@ -148,26 +150,26 @@ tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 df=pd.read_csv("mat.CSV")
 
 #making a copy of the dataset to work with
-beamer_df=df.copy()
+beam_df=df.copy()
 
 #splitting the dataset in 1/3,2/3 test and training data
-beamer_train,beamer_test=train_test_split(beamer_df, test_size=0.33)
+beam_train,beamer_test=train_test_split(beam_df, test_size=0.33)
 
 #◘beamers labels are Wn columns
-beamer_labels=beamer_train
+beam_labels=beam_train
 
-beamer_labels_columns_names=beamer_labels.iloc[:,0:8].columns.values.tolist()
+beam_labels_columns_names=beam_labels.iloc[:,0:8].columns.values.tolist()
 
-#beamer_features our features or the proprieties of a beamer, the 8 first columns
-beamer_features=pd.DataFrame([beamer_labels.pop(x) for x in beamer_labels_columns_names]).T
+#beam_features our features or the proprieties of a beamer, the 8 first columns
+beam_features=pd.DataFrame([beam_labels.pop(x) for x in beam_labels_columns_names]).T
 
-print(beamer_features.head())
-print(beamer_labels.head())
+print(beam_features.head())
+print(beam_labels.head())
 
 
 #Converting them into numpy array
-beamer_feature=np.array(beamer_features)
-beamer_label=np.array(beamer_labels)
+beamer_feature=np.array(beam_features)
+beamer_label=np.array(beam_labels)
 
 #define model for making prediction(Ann algorithm)
 
@@ -194,7 +196,7 @@ def get_model(n_inputs, n_outputs):
 
 
 
-input_model,output_model=beamer_features.shape[1],beamer_labels.shape[1]
+input_model,output_model=beam_features.shape[1],beam_labels.shape[1]
 
 model=get_model(input_model,output_model)
 
