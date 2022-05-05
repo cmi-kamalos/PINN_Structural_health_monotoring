@@ -132,6 +132,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 
+
+
 import pandas as pd
 import numpy as np
 
@@ -168,8 +170,8 @@ print(beam_labels.head())
 
 
 #Converting them into numpy array
-beamer_feature=np.array(beam_features)
-beamer_label=np.array(beam_labels)
+beam_feature=np.array(beam_features)
+beam_label=np.array(beam_labels)
 
 #define model for making prediction(Ann algorithm)
 
@@ -203,10 +205,10 @@ model=get_model(input_model,output_model)
 
 #fitting the model
 
-model.fit(beamer_feature,beamer_label,epochs=100)
+model.fit(beam_feature,beam_label,epochs=100)
 
 #evaluating the model
-model.evaluate(x=beamer_feature,y=beamer_label)
+model.evaluate(x=beam_feature,y=beam_label)
 
 
 test=np.array(beamer_test.iloc[2:3,0:8])
