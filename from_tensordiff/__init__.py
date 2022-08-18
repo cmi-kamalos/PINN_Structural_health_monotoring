@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 
-import models, optimizers, networks, plotting, utils, domains, boundaries, domaine, fit, helpers, sampling
+import models, optimizers, networks, plotting, utils, domains, boundaries, domaine1D, fit, helpers, sampling
 
 # from .models import CollocationSolverND, DiscoveryModel
 # from .boundaries import dirichletBC, periodicBC, IC
