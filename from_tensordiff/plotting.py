@@ -86,7 +86,7 @@ def plot_solution_domain1D(model, domain, ub, lb, Exact_u=None, u_transpose=Fals
     ax.set_ylabel('x')
     leg = ax.legend(frameon=False, loc = 'best')
     #    plt.setp(leg.get_texts(), color='w')
-    ax.set_title('u(t,x)', fontsize = 10)
+    ax.set_title(r'$\hat{w}$(t,x)', fontsize = 10)
 
     ####### Row 1: h(t,x) slices ##################
     gs1 = gridspec.GridSpec(1, 3)
@@ -94,20 +94,23 @@ def plot_solution_domain1D(model, domain, ub, lb, Exact_u=None, u_transpose=Fals
 
     ax = plt.subplot(gs1[0, 0])
     print("Exact_u",Exact_u.shape,"domain",domain[0].shape,U_pred.shape)
+    # print("Exact_u1",Exact_u[:,len_],len_)
     ax.plot(domain[0],Exact_u[len_,:], 'b-', linewidth = 2, label = 'Exact')
-    ax.plot(domain[0],U_pred[:,len_], 'r--', linewidth = 2, label = 'Prediction')
+    ax.plot(domain[0],U_pred[len_,:], 'r--', linewidth = 2, label = 'Prediction')
     ax.set_xlabel('x')
-    ax.set_ylabel('u(t,x)')
+    ax.set_ylabel('w(t,x)')
     ax.set_title('t = %.2f' % (domain[1][len_]), fontsize = 10)
     ax.axis('square')
     ax.set_xlim([-1.1,1.1])
     ax.set_ylim([-1.1,1.1])
+    
+    # print("Exact_2",Exact_u[2*len_,:],2*len_)
 
     ax = plt.subplot(gs1[0, 1])
     ax.plot(domain[0],Exact_u[2*len_,:], 'b-', linewidth = 2, label = 'Exact')
-    ax.plot(domain[0],U_pred[:,2*len_], 'r--', linewidth = 2, label = 'Prediction')
+    ax.plot(domain[0],U_pred[2*len_,:], 'r--', linewidth = 2, label = 'Prediction')
     ax.set_xlabel('x')
-    ax.set_ylabel('u(t,x)')
+    ax.set_ylabel('w(t,x)')
     ax.axis('square')
     ax.set_xlim([-1.1,1.1])
     ax.set_ylim([-1.1,1.1])
@@ -115,10 +118,11 @@ def plot_solution_domain1D(model, domain, ub, lb, Exact_u=None, u_transpose=Fals
     ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.3), ncol=5, frameon=False)
 
     ax = plt.subplot(gs1[0, 2])
+    # print("exact_3",Exact_u[:,3*len_],3*len_)
     ax.plot(domain[0],Exact_u[3*len_,:], 'b-', linewidth = 2, label = 'Exact')
-    ax.plot(domain[0],U_pred[:,3*len_], 'r--', linewidth = 2, label = 'Prediction')
+    ax.plot(domain[0],U_pred[3*len_,:], 'r--', linewidth = 2, label = 'Prediction')
     ax.set_xlabel('x')
-    ax.set_ylabel('u(t,x)')
+    ax.set_ylabel('w(t,x)')
     ax.axis('square')
     ax.set_xlim([-1.1,1.1])
     ax.set_ylim([-1.1,1.1])
@@ -144,33 +148,45 @@ def plot_weights(model, scale = 1):
 def plot_glam_values(model, scale = 1):
     plt.scatter(model.domain.X_f[:,1], model.domain.X_f[:,1], c = model.g(model.lambdas[0]).numpy(), s = model.g(model.lambdas[0]).numpy()/float(scale))
     plt.show()
-def plot_residuals(FU_pred, extent):
+def plot_residuals(FU_pred,ub, lb):
     fig, ax = plt.subplots()
+    fig.set_figwidth(8)
+    fig.set_figheight(2)
     ec = plt.imshow(FU_pred.T, interpolation='nearest', cmap='rainbow',
-                extent=extent,
+                extent=[lb[1], ub[1], lb[0], ub[0]],
                 origin='lower', aspect='auto')
-
+    
     #ax.add_collection(ec)
     ax.autoscale_view()
     ax.set_xlabel('x')
     ax.set_ylabel('t')
     cbar = plt.colorbar(ec)
-    cbar.set_label('\overline{f}_u prediction')
+    cbar.set_label('$\overline{f}_u$ prediction')
+    plt.savefig("pinn_residual.png")
     plt.show()
 
 def get_griddata(grid, data, dims):
     return griddata(grid, data, dims, method='cubic')
 
-def plot3D(x,t,y):
-   
+def plot3D(x,t,y,ub, lb):
+    import matplotlib.pyplot as plt
     # x_plot =tf.squeeze(x,[1])
     # t_plot =tf.squeeze(t,[1])
     X,T= tf.meshgrid(t,x)
     F_xt = y
     print(X.shape,T.shape,F_xt.shape)
-    fig,ax=plt.subplots(1,1)
+    fig,ax=newfig(1.3, 1.0)
+    ax.axis("off")
     
-    cp = ax.contourf(T,X, F_xt,30,cmap="YlGnBu")
+    ##########
+    fig.set_figwidth(8)
+    fig.set_figheight(2)
+    
+    gs0 = gridspec.GridSpec(1, 2)
+    # gs0.update(top=1-1/4, bottom=1-1/2, left=0.15, right=0.85, wspace=0)
+    ax = plt.subplot(gs0[:, :])
+    cp = ax.contourf(T,X, F_xt,30,cmap="YlGnBu",extent=[lb[1], ub[1], lb[0], ub[0]],
+                  origin='lower', aspect='auto')
     line = np.linspace(x.min(), x.max(), 2)[:,None]
     len_ = len(t)//3
     print(len(t))
@@ -183,12 +199,14 @@ def plot3D(x,t,y):
     ax.set_title('w(x,t)')
     ax.set_xlabel('t')
     ax.set_ylabel('x')
+    ###########
+    # gs1 = gridspec.GridSpec(1, 2)
+    # gs1.update(top=1-1/3, bottom=0, left=0.1, right=0.9, wspace=0.5)
+    # ax = plt.subplot(gs0[2,:])
+    # ax = plt.axes(projection='3d')
+    # ax.plot_surface(T, X, F_xt,cmap="YlGnBu")
+    # ax.set_xlabel('t')
+    # ax.set_ylabel('x')
+    # ax.set_zlabel('w(x,t)')
     plt.savefig("original_beam_pinn.png")
-    plt.show()
-    ax = plt.axes(projection='3d')
-    ax.plot_surface(T, X, F_xt,cmap="YlGnBu")
-    ax.set_xlabel('t')
-    ax.set_ylabel('x')
-    ax.set_zlabel('w(x,t)')
-    plt.savefig("3D_original_beam_pinn.png")
     plt.show()
