@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 
-from tensordiff import models, optimizers, networks, plotting, utils, domains, boundaries, domaine, fit, helpers, sampling
+import models, optimizers, networks, plotting, utils, domains, boundaries, domaine, fit, helpers, sampling
 
 # from .models import CollocationSolverND, DiscoveryModel
 # from .boundaries import dirichletBC, periodicBC, IC
