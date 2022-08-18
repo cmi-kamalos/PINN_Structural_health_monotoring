@@ -1,5 +1,5 @@
 import numpy as np
-from .utils import LatinHypercubeSample
+from utils import LatinHypercubeSample
 
 
 class DomainND:
