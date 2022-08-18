@@ -1,10 +1,10 @@
 import tensorflow as tf
 import numpy as np
-from .networks import *
-from .models import *
-from .utils import *
-from .optimizers import *
-from .output import print_screen
+from networks import *
+from models import *
+from utils import *
+from optimizers import *
+from output import print_screen
 import time
 import os
 from tqdm.auto import tqdm, trange
