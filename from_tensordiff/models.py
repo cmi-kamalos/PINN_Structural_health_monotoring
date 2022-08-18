@@ -1,12 +1,12 @@
 import tensorflow as tf
 import numpy as np
 import time
-from .utils import *
-from .networks import *
-from .plotting import *
-from .fit import *
+from utils import *
+from networks import *
+from plotting import *
+from fit import *
 from tqdm.auto import tqdm, trange
-from .output import print_screen
+from output import print_screen
 
 
 
