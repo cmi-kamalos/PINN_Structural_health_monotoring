@@ -95,7 +95,7 @@ def plot_solution_domain1D(model, domain, ub, lb, Exact_u=None, u_transpose=Fals
     ax = plt.subplot(gs1[0, 0])
     print("Exact_u",Exact_u.shape,"domain",domain[0].shape,U_pred.shape)
     # print("Exact_u1",Exact_u[:,len_],len_)
-    ax.plot(domain[0],Exact_u[len_,:], 'b-', linewidth = 2, label = 'Exact')
+    ax.plot(domain[0],Exact_u[:,len_,], 'b-', linewidth = 2, label = 'Exact')
     ax.plot(domain[0],U_pred[len_,:], 'r--', linewidth = 2, label = 'Prediction')
     ax.set_xlabel('x')
     ax.set_ylabel('w(t,x)')
@@ -107,7 +107,7 @@ def plot_solution_domain1D(model, domain, ub, lb, Exact_u=None, u_transpose=Fals
     # print("Exact_2",Exact_u[2*len_,:],2*len_)
 
     ax = plt.subplot(gs1[0, 1])
-    ax.plot(domain[0],Exact_u[2*len_,:], 'b-', linewidth = 2, label = 'Exact')
+    ax.plot(domain[0],Exact_u[:,2*len_], 'b-', linewidth = 2, label = 'Exact')
     ax.plot(domain[0],U_pred[2*len_,:], 'r--', linewidth = 2, label = 'Prediction')
     ax.set_xlabel('x')
     ax.set_ylabel('w(t,x)')
@@ -119,7 +119,7 @@ def plot_solution_domain1D(model, domain, ub, lb, Exact_u=None, u_transpose=Fals
 
     ax = plt.subplot(gs1[0, 2])
     # print("exact_3",Exact_u[:,3*len_],3*len_)
-    ax.plot(domain[0],Exact_u[3*len_,:], 'b-', linewidth = 2, label = 'Exact')
+    ax.plot(domain[0],Exact_u[:,3*len_], 'b-', linewidth = 2, label = 'Exact')
     ax.plot(domain[0],U_pred[3*len_,:], 'r--', linewidth = 2, label = 'Prediction')
     ax.set_xlabel('x')
     ax.set_ylabel('w(t,x)')
