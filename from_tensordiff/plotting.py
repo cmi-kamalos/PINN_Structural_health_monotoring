@@ -168,11 +168,10 @@ def plot_residuals(FU_pred,ub, lb):
 def get_griddata(grid, data, dims):
     return griddata(grid, data, dims, method='cubic')
 
-def plot3D(x,t,y,ub, lb):
-    import matplotlib.pyplot as plt
+def plot(x,t,z,ub, lb):
     # x_plot =tf.squeeze(x,[1])
     # t_plot =tf.squeeze(t,[1])
-    X,T= tf.meshgrid(t,x)
+    X,T= np.meshgrid(x,t)
     F_xt = y
     print(X.shape,T.shape,F_xt.shape)
     fig,ax=newfig(1.3, 1.0)
@@ -185,7 +184,7 @@ def plot3D(x,t,y,ub, lb):
     gs0 = gridspec.GridSpec(1, 2)
     # gs0.update(top=1-1/4, bottom=1-1/2, left=0.15, right=0.85, wspace=0)
     ax = plt.subplot(gs0[:, :])
-    cp = ax.contourf(T,X, F_xt,30,cmap="YlGnBu",extent=[lb[1], ub[1], lb[0], ub[0]],
+    cp = ax.contourf(X,T, F_xt,30,cmap="YlGnBu",extent=[lb[1], ub[1], lb[0], ub[0]],
                   origin='lower', aspect='auto')
     line = np.linspace(x.min(), x.max(), 2)[:,None]
     len_ = len(t)//3
