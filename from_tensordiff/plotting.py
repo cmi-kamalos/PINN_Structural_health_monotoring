@@ -172,7 +172,7 @@ def plot(x,t,z,ub, lb):
     # x_plot =tf.squeeze(x,[1])
     # t_plot =tf.squeeze(t,[1])
     X,T= np.meshgrid(x,t)
-    F_xt = y
+    F_xt = z
     print(X.shape,T.shape,F_xt.shape)
     fig,ax=newfig(1.3, 1.0)
     ax.axis("off")
