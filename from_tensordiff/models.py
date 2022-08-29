@@ -305,12 +305,15 @@ class CollocationSolverND:
 # WIP
 # TODO Distributed Discovery Model
 class DiscoveryModel():
-    def compile(self, layer_sizes, f_model, X, u, var, col_weights=None):
+    def compile(self, layer_sizes, f_model,domain, X, u, var, col_weights=None):
         self.layer_sizes = layer_sizes
         self.f_model = get_tf_model(f_model)
         self.X = X
         self.u = u
         self.vars = var
+        self.domain = domain
+        self.X_f_dims = tf.shape(self.domain.X_f)
+        self.X_f_len = tf.slice(self.X_f_dims, [0], [1]).numpy()
         self.len_ = len(var)
         self.u_model = neural_net(self.layer_sizes)
         self.tf_optimizer = tf.keras.optimizers.Adam(lr=0.005, beta_1=.99)
