@@ -209,3 +209,8 @@ def plot(x,t,z,ub, lb):
     # ax.set_zlabel('w(x,t)')
     plt.savefig("original_beam_pinn.png")
     plt.show()
+def plot_discovery(model, scale = 1):
+    plt.scatter(model.domain.X_f[:,1], model.domain.X_f[:,0])
+    plt.xlabel(model.domain.domain_ids[1])
+    plt.ylabel(model.domain.domain_ids[0])
+    plt.show()
