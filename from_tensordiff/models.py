@@ -323,6 +323,7 @@ class DiscoveryModel():
         # tmp = [np.reshape(vec, (-1,1)) for i, vec in enumerate(self.X)]
         self.X_in = tuple(X)
         # self.X_in = np.asarray(tmp).T
+        self.lambdas, _ = initialize_weights_loss(init_weights)
 
     # print(np.shape(self.X_in))
 
