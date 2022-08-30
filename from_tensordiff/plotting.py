@@ -95,7 +95,7 @@ def plot_solution_domain1D(model, domain, ub, lb, Exact_u=None, u_transpose=Fals
     ax = plt.subplot(gs1[0, 0])
     print("Exact_u",Exact_u.shape,"domain",domain[0].shape,U_pred.shape)
     # print("Exact_u1",Exact_u[:,len_],len_)
-    ax.plot(domain[0],Exact_u[:,ken_], 'b-', linewidth = 2, label = 'Exact')
+    ax.plot(domain[0],Exact_u[:,len_], 'b-', linewidth = 2, label = 'Exact')
     ax.plot(domain[0],U_pred[len_,:], 'r--', linewidth = 2, label = 'Prediction')
     ax.set_xlabel('x')
     ax.set_ylabel('w(t,x)')
