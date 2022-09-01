@@ -171,21 +171,12 @@ def get_griddata(grid, data, dims):
 def plot(x,t,z,ub, lb):
     # x_plot =tf.squeeze(x,[1])
     # t_plot =tf.squeeze(t,[1])
-    X,T= np.meshgrid(x,t)
-    F_xt = z
+    X,T= tf.meshgrid(t,x)
+    F_xt = y
     print(X.shape,T.shape,F_xt.shape)
-    fig,ax=newfig(1.3, 1.0)
-    ax.axis("off")
+    fig,ax=plt.subplots(1,1)
     
-    ##########
-    fig.set_figwidth(8)
-    fig.set_figheight(2)
-    
-    gs0 = gridspec.GridSpec(1, 2)
-    # gs0.update(top=1-1/4, bottom=1-1/2, left=0.15, right=0.85, wspace=0)
-    ax = plt.subplot(gs0[:, :])
-    cp = ax.contourf(X,T, F_xt,30,cmap="YlGnBu",extent=[lb[1], ub[1], lb[0], ub[0]],
-                  origin='lower', aspect='auto')
+    cp = ax.contourf(T,X, F_xt,30,cmap="YlGnBu")
     line = np.linspace(x.min(), x.max(), 2)[:,None]
     len_ = len(t)//3
     print(len(t))
@@ -198,6 +189,8 @@ def plot(x,t,z,ub, lb):
     ax.set_title('w(x,t)')
     ax.set_xlabel('t')
     ax.set_ylabel('x')
+    plt.savefig("original_beam_pinn.png")
+    plt.show()
     ###########
     # gs1 = gridspec.GridSpec(1, 2)
     # gs1.update(top=1-1/3, bottom=0, left=0.1, right=0.9, wspace=0.5)
@@ -207,8 +200,8 @@ def plot(x,t,z,ub, lb):
     # ax.set_xlabel('t')
     # ax.set_ylabel('x')
     # ax.set_zlabel('w(x,t)')
-    plt.savefig("original_beam_pinn.png")
-    plt.show()
+#     plt.savefig("original_beam_pinn.png")
+#     plt.show()
 def plot_discovery(model, scale = 1):
     plt.scatter(model.domain.X_f[:,1], model.domain.X_f[:,0])
     plt.xlabel(model.domain.domain_ids[1])
