@@ -1,7 +1,7 @@
 import tensorflow as tf
-from tensorflow.python.keras.models import Sequential
-from tensorflow.python.keras.layers import Dense, Input
-from tensorflow.python.keras import layers, activations
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Input
+from tensorflow.keras import layers, activations
 
 
 # define the baseline FC neural network model
