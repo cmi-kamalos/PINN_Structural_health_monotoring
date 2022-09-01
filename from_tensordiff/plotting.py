@@ -171,12 +171,12 @@ def get_griddata(grid, data, dims):
 def plot(x,t,y,ub, lb):
     # x_plot =tf.squeeze(x,[1])
     # t_plot =tf.squeeze(t,[1])
-    X,T= tf.meshgrid(t,x)
+    X,T= tf.meshgrid(x,t)
     F_xt = y
     print(X.shape,T.shape,F_xt.shape)
     fig,ax=plt.subplots(1,1)
     
-    cp = ax.contourf(T,X, F_xt,30,cmap="YlGnBu")
+    cp = ax.contourf(X,T, F_xt,30,cmap="YlGnBu")
     line = np.linspace(x.min(), x.max(), 2)[:,None]
     len_ = len(t)//3
     print(len(t))
