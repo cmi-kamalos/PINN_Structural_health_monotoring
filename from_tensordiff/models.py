@@ -138,7 +138,21 @@ class CollocationSolverND:
                                 target = tf.cast(bc.u_x_model(self.u_model, bc.input[i])[j][k], dtype=tf.float32)
                                 msq = MSE(bc.val, target)
                                 loss_bc = tf.math.add(loss_bc, msq)
-
+                                
+            elif bc.isDirichletFunc:
+                if isBC_adaptive:
+                    loss_bc = MSE(self.u_model(bc.input), bc.val, self.lambdas[idx_lambda_bcs])
+                    idx_lambda_bcs += 1
+                else:
+                    for i, dim in enumerate(bc.var):
+                        for j, lst in enumerate(dim):
+                            for k, tup in enumerate(lst):
+                                
+                                target=tf.cast((bc.input[i])[j], dtype=tf.float32)
+                                print(target)
+                                msq = MSE(bc.val, target)
+                                tf.math.add(loss_bc, msq)
+            
             elif bc.isDirichlect:
                 if isBC_adaptive:
                     loss_bc = MSE(self.u_model(bc.input), bc.val, self.lambdas[idx_lambda_bcs])
@@ -305,15 +319,12 @@ class CollocationSolverND:
 # WIP
 # TODO Distributed Discovery Model
 class DiscoveryModel():
-    def compile(self, layer_sizes, f_model,domain, X, u, var, col_weights=None):
+    def compile(self, layer_sizes, f_model, X, u, var, col_weights=None):
         self.layer_sizes = layer_sizes
         self.f_model = get_tf_model(f_model)
         self.X = X
         self.u = u
         self.vars = var
-        self.domain = domain
-        self.X_f_dims = tf.shape(self.domain.X_f)
-        self.X_f_len = tf.slice(self.X_f_dims, [0], [1]).numpy()
         self.len_ = len(var)
         self.u_model = neural_net(self.layer_sizes)
         self.tf_optimizer = tf.keras.optimizers.Adam(lr=0.005, beta_1=.99)
@@ -323,7 +334,6 @@ class DiscoveryModel():
         # tmp = [np.reshape(vec, (-1,1)) for i, vec in enumerate(self.X)]
         self.X_in = tuple(X)
         # self.X_in = np.asarray(tmp).T
-        self.lambdas, _ = initialize_weights_loss(init_weights)
 
     # print(np.shape(self.X_in))
 
