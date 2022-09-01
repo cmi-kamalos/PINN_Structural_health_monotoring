@@ -3,6 +3,7 @@ import numpy as np
 import tensorflow as tf
 from utils import multimesh, flatten_and_stack, MSE, convertTensor, get_tf_model
 
+
 def get_linspace(dict_):
     lin_key = "linspace"
     return [val for key, val in dict_.items() if lin_key in key][0]
@@ -65,11 +66,11 @@ class FunctionDirichletBC(BC):
         self.target = target
         self.func_inputs = func_inputs
         self.n_values = n_values
-        self.dicts_ = [item for item in self.domain.domaindict if item['identifier'] != self.var]
-        self.dict_ = next(item for item in self.domain.domaindict if item["identifier"] == self.var)
+        # self.dicts_ = [item for item in self.domain.domaindict if item['identifier'] != self.var]
+        # self.dict_ = next(item for item in self.domain.domaindict if item["identifier"] == self.var)
         # print(self.dict_)
         super().__init__()
-        self.targets = self.dict_[var+target]
+        # self.targets = self.dict_[var+target]
         self.compile()
         self.create_target()
         self.isDirichletFunc = True
@@ -115,18 +116,23 @@ class FunctionDirichletBC(BC):
 
     def create_target(self):
         fun_vals = []
+        list=[]
+        # inp=
         for i, var_ in enumerate(self.func_inputs):
             arg_list = []
             for j, var in enumerate(var_):
                 var_dict = self.get_dict(var)
                 arg_list.append(get_linspace(var_dict))
             inp = flatten_and_stack(multimesh(arg_list))
-            # print(self.fun(*inp.T))
-            fun_vals.append(self.fun(*inp.T))
+            array=np.concatenate(inp).ravel()
+            print(array,array.shape)
+            list.append(array)
+        # print("here its shape",np.array(list).shape)
+        fun_vals.append(self.fun(*list))
         # print(np.reshape(fun_vals, (-1, 1)).shape)
         self.val = convertTensor(np.reshape(fun_vals, (-1, 1))[self.nums])
         
-        print(self.val.shape,self.nums)
+        # print(self.val.shape,self.nums)
 
 class FunctionNeumannBC(BC):
     def __init__(self, domain, fun, var, target, deriv_model, func_inputs, n_values=None):
