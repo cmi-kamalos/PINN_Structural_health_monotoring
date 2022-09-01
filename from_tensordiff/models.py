@@ -291,7 +291,8 @@ class CollocationSolverND:
             grad = tape.gradient(loss_value, self.u_model.trainable_variables)
             grad_flat = []
             for g in grad:
-                grad_flat.append(tf.reshape(g, [-1]))
+                if g is not None:
+                    grad_flat.append(tf.reshape(g, [-1]))
             grad_flat = tf.concat(grad_flat, 0)
             return loss_value, grad_flat
 
