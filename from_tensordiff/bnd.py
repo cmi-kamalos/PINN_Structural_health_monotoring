@@ -1,8 +1,7 @@
-from tensordiff.domains import DomainND
+from domains import DomainND
 import numpy as np
 import tensorflow as tf
-import inspect
-from .utils import multimesh, flatten_and_stack, MSE, convertTensor, get_tf_model
+from utils import multimesh, flatten_and_stack, MSE, convertTensor, get_tf_model
 
 def get_linspace(dict_):
     lin_key = "linspace"
