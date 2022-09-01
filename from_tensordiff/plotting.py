@@ -168,7 +168,7 @@ def plot_residuals(FU_pred,ub, lb):
 def get_griddata(grid, data, dims):
     return griddata(grid, data, dims, method='cubic')
 
-def plot(x,t,z,ub, lb):
+def plot(x,t,y,ub, lb):
     # x_plot =tf.squeeze(x,[1])
     # t_plot =tf.squeeze(t,[1])
     X,T= tf.meshgrid(t,x)
