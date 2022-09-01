@@ -149,7 +149,7 @@ class CollocationSolverND:
                             for k, tup in enumerate(lst):
                                 
                                 target=tf.cast((bc.input[i])[j], dtype=tf.float32)
-                                print(target)
+           
                                 msq = MSE(bc.val, target)
                                 tf.math.add(loss_bc, msq)
             
