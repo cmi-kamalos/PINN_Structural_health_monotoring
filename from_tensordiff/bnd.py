@@ -133,7 +133,7 @@ class FunctionDirichletBC(BC):
                     var_dict = self.get_dict(var)
                     arg_list.append(get_linspace(var_dict))
                 inp = flatten_and_stack(multimesh(arg_list))
-                fun_vals.append(self.fun[i](*inp.T))
+                fun_vals.append(self.fun(*inp.T))
         
         self.val = convertTensor(np.reshape(fun_vals, (-1, 1))[self.nums])
         
@@ -200,7 +200,7 @@ class FunctionNeumannBC(BC):
                     var_dict = self.get_dict(var)
                     arg_list.append(get_linspace(var_dict))
                 inp = flatten_and_stack(multimesh(arg_list))
-                fun_vals.append(self.fun[i](*inp.T))
+                fun_vals.append(self.fun(*inp.T))
         
         self.val = convertTensor(np.reshape(fun_vals, (-1, 1))[self.nums])
         
