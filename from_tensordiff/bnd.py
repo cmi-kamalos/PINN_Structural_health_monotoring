@@ -130,10 +130,10 @@ class FunctionDirichletBC(BC):
             fun_vals.append(self.fun(*list))
            else:
                 for j, var in enumerate(var_):
-                var_dict = self.get_dict(var)
-                arg_list.append(get_linspace(var_dict))
-            inp = flatten_and_stack(multimesh(arg_list))
-            fun_vals.append(self.fun[i](*inp.T))
+                    var_dict = self.get_dict(var)
+                    arg_list.append(get_linspace(var_dict))
+                inp = flatten_and_stack(multimesh(arg_list))
+                fun_vals.append(self.fun[i](*inp.T))
         
         self.val = convertTensor(np.reshape(fun_vals, (-1, 1))[self.nums])
         
@@ -197,10 +197,10 @@ class FunctionNeumannBC(BC):
             fun_vals.append(self.fun(*list))
            else:
                 for j, var in enumerate(var_):
-                var_dict = self.get_dict(var)
-                arg_list.append(get_linspace(var_dict))
-            inp = flatten_and_stack(multimesh(arg_list))
-            fun_vals.append(self.fun[i](*inp.T))
+                    var_dict = self.get_dict(var)
+                    arg_list.append(get_linspace(var_dict))
+                inp = flatten_and_stack(multimesh(arg_list))
+                fun_vals.append(self.fun[i](*inp.T))
         
         self.val = convertTensor(np.reshape(fun_vals, (-1, 1))[self.nums])
         
