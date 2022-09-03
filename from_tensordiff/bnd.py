@@ -128,7 +128,7 @@ class FunctionDirichletBC(BC):
                 array=np.concatenate(inp).ravel()
                 list.append(array)
             fun_vals.append(self.fun(*list))
-           else:
+            else:
                 for j, var in enumerate(var_):
                     var_dict = self.get_dict(var)
                     arg_list.append(get_linspace(var_dict))
@@ -195,7 +195,7 @@ class FunctionNeumannBC(BC):
                 array=np.concatenate(inp).ravel()
                 list.append(array)
             fun_vals.append(self.fun(*list))
-           else:
+            else:
                 for j, var in enumerate(var_):
                     var_dict = self.get_dict(var)
                     arg_list.append(get_linspace(var_dict))
