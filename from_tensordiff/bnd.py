@@ -185,9 +185,9 @@ class FunctionNeumannBC(BC):
         fun_vals = []
         list=[]
         # inp=
-        for i, var_ in enumerate(self.func_inputs):
-            arg_list = []
-            if len(self.func_inputs) > 1:
+        if len(self.func_inputs) > 1:
+            for i, var_ in enumerate(self.func_inputs):
+                arg_list = []
                 for j, var in enumerate(var_):
                     var_dict = self.get_dict(var)
                     arg_list.append(get_linspace(var_dict))
@@ -195,13 +195,16 @@ class FunctionNeumannBC(BC):
                 array=np.concatenate(inp).ravel()
                 list.append(array)
                 fun_vals.append(self.fun(*list))
-            else:
+        else:
+            for i, var_ in enumerate(self.func_inputs):
                 for j, var in enumerate(var_):
                     var_dict = self.get_dict(var)
                     arg_list.append(get_linspace(var_dict))
                 inp = flatten_and_stack(multimesh(arg_list))
+                array=np.concatenate(inp).ravel()
+                list.append(array)
                 fun_vals.append(self.fun(*inp.T))
-        
+
         self.val = convertTensor(np.reshape(fun_vals, (-1, 1))[self.nums])
         
         # print(self.val.shape,self.nums)
