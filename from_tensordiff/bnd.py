@@ -127,7 +127,7 @@ class FunctionDirichletBC(BC):
                 inp = flatten_and_stack(multimesh(arg_list))
                 array=np.concatenate(inp).ravel()
                 list.append(array)
-            fun_vals.append(self.fun(*list))
+                fun_vals.append(self.fun(*list))
             else:
                 for j, var in enumerate(var_):
                     var_dict = self.get_dict(var)
@@ -194,7 +194,7 @@ class FunctionNeumannBC(BC):
                 inp = flatten_and_stack(multimesh(arg_list))
                 array=np.concatenate(inp).ravel()
                 list.append(array)
-            fun_vals.append(self.fun(*list))
+                fun_vals.append(self.fun(*list))
             else:
                 for j, var in enumerate(var_):
                     var_dict = self.get_dict(var)
