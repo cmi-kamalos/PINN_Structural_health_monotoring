@@ -178,17 +178,19 @@ class FunctionNeumannBC(BC):
             outer.append(np.asarray(tmp))
         return outer
 
-    def create_target(self):
-        fun_vals = []
-        for i, var_ in enumerate(self.func_inputs):
+   for i, var_ in enumerate(self.func_inputs):
             arg_list = []
             for j, var in enumerate(var_):
                 var_dict = self.get_dict(var)
                 arg_list.append(get_linspace(var_dict))
             inp = flatten_and_stack(multimesh(arg_list))
-            fun_vals.append(self.fun[i](*inp.T))
+            array=np.concatenate(inp).ravel()
+            print(array,array.shape)
+            list.append(array)
+        # print("here its shape",np.array(list).shape)
+        fun_vals.append(self.fun(*list))
+        # print(np.reshape(fun_vals, (-1, 1)).shape)
         self.val = convertTensor(np.reshape(fun_vals, (-1, 1))[self.nums])
-
 def get_function_out(func, var, dict_):
     linspace = get_linspace(dict_)
     return func(linspace)
