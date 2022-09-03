@@ -183,7 +183,7 @@ class FunctionNeumannBC(BC):
             for j, var in enumerate(var_):
                 var_dict = self.get_dict(var)
                 arg_list.append(get_linspace(var_dict))
-            inp = flatten_and_stack(multimesh(arg_list))
+                inp = flatten_and_stack(multimesh(arg_list))
             array=np.concatenate(inp).ravel()
             print(array,array.shape)
             list.append(array)
