@@ -197,6 +197,7 @@ class FunctionNeumannBC(BC):
                 fun_vals.append(self.fun(*list))
         else:
             for i, var_ in enumerate(self.func_inputs):
+                arg_list = []
                 for j, var in enumerate(var_):
                     var_dict = self.get_dict(var)
                     arg_list.append(get_linspace(var_dict))
