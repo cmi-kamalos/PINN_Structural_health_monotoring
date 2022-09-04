@@ -194,7 +194,7 @@ class FunctionNeumannBC(BC):
                 inp = flatten_and_stack(multimesh(arg_list))
                 array=np.concatenate(inp).ravel()
                 list.append(array)
-                fun_vals.append(self.fun(*list))
+            fun_vals.append(self.fun(*list))
         else:
             for i, var_ in enumerate(self.func_inputs):
                 arg_list = []
@@ -204,7 +204,7 @@ class FunctionNeumannBC(BC):
                 inp = flatten_and_stack(multimesh(arg_list))
                 array=np.concatenate(inp).ravel()
                 list.append(array)
-                fun_vals.append(self.fun(*inp.T))
+            fun_vals.append(self.fun(*inp.T))
 
         self.val = convertTensor(np.reshape(fun_vals, (-1, 1))[self.nums])
         
