@@ -320,7 +320,7 @@ def plot_beam(y,x,z,ub, lb):
     fig.set_figwidth(7)
     cp = ax.contourf(X,Y, F_xt,30,cmap="YlGnBu")
     line = np.linspace(y.min(), y.max(), 2)[:,None]
-    len_ = len(x)//3
+    len_ = len(x)//4
     ax.plot(x[len_]*np.ones((2,1)), line, 'k--', linewidth = 1)
     ax.plot(x[2*len_]*np.ones((2,1)), line, 'k--', linewidth = 1)
     ax.plot(x[3*len_]*np.ones((2,1)), line, 'k--', linewidth = 1)
