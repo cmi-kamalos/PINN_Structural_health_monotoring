@@ -266,7 +266,7 @@ def plot_solution_Beam(model, domain, ub, lb, Exact_u=None, u_transpose=False):
     ax.set_ylabel('x')
     leg = ax.legend(frameon=False, loc = 'best')
     #    plt.setp(leg.get_texts(), color='w')
-    ax.set_title(r'$\hat{w}$(x)', fontsize = 10)
+    ax.set_title(r'$\hat{w}$(x,y)', fontsize = 10)
 
     ####### Row 1: h(t,x) slices ##################
     gs1 = gridspec.GridSpec(1, 3)
@@ -278,7 +278,7 @@ def plot_solution_Beam(model, domain, ub, lb, Exact_u=None, u_transpose=False):
     ax.plot(domain[0],Exact_u[:,len_], 'b-', linewidth = 2, label = 'Exact')
     ax.plot(domain[0],U_pred[len_,:], 'r--', linewidth = 2, label = 'Prediction')
     ax.set_xlabel('x')
-    ax.set_ylabel('w(x)')
+    ax.set_ylabel('w(x,y)')
     ax.set_title('s = %.2f' % (domain[1][len_]), fontsize = 10)
     ax.axis('square')
     ax.set_xlim([-1.1,1.1])
@@ -289,7 +289,7 @@ def plot_solution_Beam(model, domain, ub, lb, Exact_u=None, u_transpose=False):
     ax.plot(domain[0],Exact_u[:,2*len_], 'b-', linewidth = 2, label = 'Exact')
     ax.plot(domain[0],U_pred[2*len_,:], 'r--', linewidth = 2, label = 'Prediction')
     ax.set_xlabel('x')
-    ax.set_ylabel('w(x)')
+    ax.set_ylabel('w(x,y)')
     ax.axis('square')
     ax.set_xlim([-1.1,1.1])
     ax.set_ylim([-1.1,1.1])
@@ -301,7 +301,7 @@ def plot_solution_Beam(model, domain, ub, lb, Exact_u=None, u_transpose=False):
     ax.plot(domain[0],Exact_u[:,3*len_], 'b-', linewidth = 2, label = 'Exact')
     ax.plot(domain[0],U_pred[3*len_,:], 'r--', linewidth = 2, label = 'Prediction')
     ax.set_xlabel('x')
-    ax.set_ylabel('w(x)')
+    ax.set_ylabel('w(x,y)')
     ax.axis('square')
     ax.set_xlim([-1.1,1.1])
     ax.set_ylim([-1.1,1.1])
@@ -314,7 +314,7 @@ def plot_beam(y,x,z,ub, lb):
     # t_plot =tf.squeeze(t,[1])
     X,Y= tf.meshgrid(x,y)
     F_xt = z
-    print(X.shape,T.shape,F_xt.shape)
+
     fig,ax=plt.subplots(1,1)
     fig.set_figheight(2)
     fig.set_figwidth(7)
