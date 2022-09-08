@@ -171,7 +171,7 @@ def get_griddata(grid, data, dims):
 def plot(x,t,y,ub, lb):
     # x_plot =tf.squeeze(x,[1])
     # t_plot =tf.squeeze(t,[1])
-    X,T= tf.meshgrid(x,t)
+    X,T= np.meshgrid(x,t)
     F_xt = y
     print(X.shape,T.shape,F_xt.shape)
     fig,ax=plt.subplots(1,1)
@@ -312,7 +312,7 @@ def plot_solution_Beam(model, domain, ub, lb, Exact_u=None, u_transpose=False):
 def plot_beam(y,x,z,ub, lb):
     # x_plot =tf.squeeze(x,[1])
     # t_plot =tf.squeeze(t,[1])
-    X,Y= tf.meshgrid(x,y)
+    X,Y= np.meshgrid(y,x)
     F_xt = z
 
     fig,ax=plt.subplots(1,1)
