@@ -78,9 +78,9 @@ def plot_solution_domain1D(model, domain, ub, lb, Exact_u=None, u_transpose=Fals
     len_ = len(domain[1])//4
 
     line = np.linspace(domain[0].min(), domain[0].max(), 2)[:,None]
-    ax.plot(domain[1][len_]*np.ones((2,1)), line, 'k--', linewidth = 1)
-    ax.plot(domain[1][2*len_]*np.ones((2,1)), line, 'k--', linewidth = 1)
-    ax.plot(domain[1][3*len_]*np.ones((2,1)), line, 'k--', linewidth = 1)
+    ax.plot(domain[1][len_]*np.ones((2,1)), line, 'k--', linewidth = 2)
+    ax.plot(domain[1][2*len_]*np.ones((2,1)), line, 'k--', linewidth = 2)
+    ax.plot(domain[1][3*len_]*np.ones((2,1)), line, 'k--', linewidth = 2)
 
     ax.set_xlabel('t')
     ax.set_ylabel('x')
