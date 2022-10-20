@@ -168,40 +168,35 @@ def plot_residuals(FU_pred,ub, lb):
 def get_griddata(grid, data, dims):
     return griddata(grid, data, dims, method='cubic')
 
-def plot(x,t,y,ub, lb):
-    # x_plot =tf.squeeze(x,[1])
-    # t_plot =tf.squeeze(t,[1])
-    X,T= np.meshgrid(x,t)
-    F_xt = y
-    print(X.shape,T.shape,F_xt.shape)
-    fig,ax=plt.subplots(1,1)
+def plot_original(domain,ub,lb,Exact_sol):
+   
+  
+    fig, ax = newfig(1.3, 1.0)
+
+    ax.axis('off')
+    gs0 = gridspec.GridSpec(1, 2)
+    gs0.update(top=1-0.06, bottom=1-1/3, left=0.15, right=0.85, wspace=0)
+    ax = plt.subplot(gs0[:, :])
     
-    cp = ax.contourf(X,T, F_xt,30,cmap="YlGnBu")
-    line = np.linspace(x.min(), x.max(), 2)[:,None]
-    len_ = len(t)//3
-    print(len(t))
-    ax.plot(t[len_]*np.ones((2,1)), line, 'k--', linewidth = 1)
+    # Exact_sol=np.array(Exact_sol.eval([X,T]))
+    h = ax.imshow(Exact_sol, interpolation='nearest', cmap='YlGnBu',
+                  extent=[lb[1], ub[1], lb[0], ub[0]],
+                  origin='lower', aspect='auto')
+    line = np.linspace(domain[0].min(), domain[0].max(), 2)[:,None]
+    len_ = len(domain[0])//4
+    
+    ax.plot(domain[0][len_]*np.ones((2,1)), line, 'k--', linewidth = 1)
+    ax.plot(domain[0][2*len_]*np.ones((2,1)), line, 'k--', linewidth = 1)
+    ax.plot(domain[0][3*len_]*np.ones((2,1)), line, 'k--', linewidth = 1)
     ax.plot(t[2*len_]*np.ones((2,1)), line, 'k--', linewidth = 1)
-    # ax.plot(t[2*len_]*np.ones((2,1)), line, 'k--', linewidth = 1)
     divider = make_axes_locatable(ax)
     cax = divider.append_axes("right", size="5%", pad=0.05)
-    fig.colorbar(cp,cax) # Add a colorbar to a plot
-    ax.set_title('w(x,t)')
-    ax.set_xlabel('t')
-    ax.set_ylabel('x')
-    plt.savefig("original_beam_pinn.png")
-    plt.show()
-    ###########
-    # gs1 = gridspec.GridSpec(1, 2)
-    # gs1.update(top=1-1/3, bottom=0, left=0.1, right=0.9, wspace=0.5)
-    # ax = plt.subplot(gs0[2,:])
-    # ax = plt.axes(projection='3d')
-    # ax.plot_surface(T, X, F_xt,cmap="YlGnBu")
-    # ax.set_xlabel('t')
+    fig.colorbar(h,cax) # Add a colorbar to a plot
+    ax.set_title('W')
+    ax.set_xlabel('x')
     # ax.set_ylabel('x')
-    # ax.set_zlabel('w(x,t)')
-#     plt.savefig("original_beam_pinn.png")
-#     plt.show()
+    plt.savefig("original_cant_pinn.png")
+
 def plot_discovery(model, scale = 1):
     plt.scatter(model.domain.X_f[:,1], model.domain.X_f[:,0])
     plt.xlabel(model.domain.domain_ids[1])
