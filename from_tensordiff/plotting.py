@@ -188,7 +188,7 @@ def plot_original(domain,ub,lb,Exact_sol):
     ax.plot(domain[0][len_]*np.ones((2,1)), line, 'k--', linewidth = 1)
     ax.plot(domain[0][2*len_]*np.ones((2,1)), line, 'k--', linewidth = 1)
     ax.plot(domain[0][3*len_]*np.ones((2,1)), line, 'k--', linewidth = 1)
-    ax.plot(t[2*len_]*np.ones((2,1)), line, 'k--', linewidth = 1)
+#     ax.plot(t[2*len_]*np.ones((2,1)), line, 'k--', linewidth = 1)
     divider = make_axes_locatable(ax)
     cax = divider.append_axes("right", size="5%", pad=0.05)
     fig.colorbar(h,cax) # Add a colorbar to a plot
