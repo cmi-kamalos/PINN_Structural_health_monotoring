@@ -313,7 +313,7 @@ def plot_beam(y,x,z,ub, lb):
     # x_plot =tf.squeeze(x,[1])
     # t_plot =tf.squeeze(t,[1])
     X,Y= np.meshgrid(y,x)
-    F_xt = z
+    F_xt = z.T
 
     fig,ax=plt.subplots(1,1)
     fig.set_figheight(2)
