@@ -69,7 +69,7 @@ def plot_solution_domain1D(model, domain, ub, lb, Exact_u=None, u_transpose=Fals
     gs0.update(top=1-0.06, bottom=1-1/3, left=0.15, right=0.85, wspace=0)
     ax = plt.subplot(gs0[:, :])
 
-    h = ax.imshow(U_pred.T, interpolation='nearest', cmap='YlGnBu',
+    h = ax.imshow(U_pred, interpolation='nearest', cmap='YlGnBu',
                   extent=[lb[1], ub[1], lb[0], ub[0]],
                   origin='lower', aspect='auto')
     divider = make_axes_locatable(ax)
@@ -179,7 +179,7 @@ def plot_original(domain,ub,lb,Exact_sol):
     ax = plt.subplot(gs0[:, :])
     
     # Exact_sol=np.array(Exact_sol.eval([X,T]))
-    h = ax.imshow(Exact_sol, interpolation='nearest', cmap='YlGnBu',
+    h = ax.imshow(Exact_sol.T, interpolation='nearest', cmap='YlGnBu',
                   extent=[lb[1], ub[1], lb[0], ub[0]],
                   origin='lower', aspect='auto')
     line = np.linspace(domain[0].min(), domain[0].max(), 2)[:,None]
